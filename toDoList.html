@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do List</title>
+  <style>
+    body {
+        padding-top: 50px;
+      font-family: Arial, sans-serif;
+      background-color: #fee6e3;
+    }
+
+    .container {
+    
+        background-color: white;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .todo-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .todo-item input[type="checkbox"] {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>To-Do List</h1>
+    <form id="todo-form">
+      <input type="text" id="todo-input" placeholder="Enter a task" required>
+      <button type="submit">Add</button>
+    </form>
+    <ul class="todo-list" id="todo-list"></ul>
+  </div>
+
+  <script>
+    // Get references to the form and list elements
+    const form = document.getElementById('todo-form');
+    const input = document.getElementById('todo-input');
+    const list = document.getElementById('todo-list');
+
+    // Function to create a new to-do item
+    function createTodoItem(text) {
+      const todoItem = document.createElement('li');
+      todoItem.className = 'todo-item';
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+
+      const label = document.createElement('label');
+      label.textContent = text;
+
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Delete';
+
+      // Event listener to delete the item when the delete button is clicked
+      deleteButton.addEventListener('click', function () {
+        todoItem.remove();
+      });
+
+      // Append the checkbox, label, and delete button to the to-do item
+      todoItem.appendChild(checkbox);
+      todoItem.appendChild(label);
+      todoItem.appendChild(deleteButton);
+
+      // Append the to-do item to the list
+      list.appendChild(todoItem);
+    }
+
+    // Event listener for the form submission
+    form.addEventListener('submit', function (event) {
+      event.preventDefault(); // Prevent form submission
+
+      const todoText = input.value.trim();
+      if (todoText !== '') {
+        createTodoItem(todoText);
+        input.value = ''; // Clear the input field
+      }
+    });
+  </script>
+</body>
+</html>
